@@ -12,6 +12,8 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = ["acpi_backlight=vendor"
+  		       "amdgpu.backlight=0"];
 
   # 2. Nombre de host (debe coincidir con el atributo en tu flake.nix)
   networking.hostName = "nixos";
@@ -23,6 +25,7 @@
   # 4. Habilitar servicios básicos
   services.openssh.enable = true;
   services.xserver.enable = true;
+  hardware.acpilight.enable = true;
 
   # 5. Permitir software no libre (heredado de tu flake)
   nixpkgs.config.allowUnfree = true;
@@ -69,6 +72,7 @@
     jetbrains.rider
     pulseaudioFull
     playerctl
+    dotnetCorePackages.sdk_8_0_3xx-bin
   ];
 
   fonts = {
