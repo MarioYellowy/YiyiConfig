@@ -69,10 +69,10 @@
     libreoffice
     unzip
     neofetch
-    jetbrains.rider
     pulseaudioFull
     playerctl
-    dotnetCorePackages.sdk_8_0_3xx-bin
+    dotnetCorePackages.sdk_9_0_3xx
+    htop
   ];
 
   fonts = {
