@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ confit, pkgs, ... }:
 
 {
   # 1. Importa la configuración de hardware que generaste
@@ -55,6 +55,7 @@
     hyprlock
     hypridle
     hyprpaper
+    hyprcursor
     grim
     slurp
     swappy
@@ -73,6 +74,8 @@
     playerctl
     dotnetCorePackages.sdk_9_0_3xx
     htop
+    jetbrains.rider
+    jetbrains.idea-ultimate
   ];
 
   fonts = {
