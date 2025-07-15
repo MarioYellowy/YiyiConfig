@@ -35,19 +35,12 @@
       DesktopNames=Hyprland
       '';
 
-      "sddm/themes/catppuccin-mocha/theme.conf".source =
-    ./themes/catppuccin-mocha/theme.conf;
-
-      "sddm/themes/catppuccin-mocha/Main.qml".source =
-    ./themes/catppuccin-mocha/Main.qml;
-
-      "sddm/themes/catppuccin-mocha/backgrounds/BackgroundZeldaLogin.png".source =
-    ./themes/catppuccin-mocha/backgrounds/BackgroundZeldaLogin.png;
+      "sddm/themes/catppuccin-mocha".source = ./themes/catppuccin-mocha;
   };
   
   services.xserver.enable = true;
 
-  services.xserver.displayManager.sddm = {
+  services.displayManager.sddm = {
     enable = true;
     theme  = "catppuccin-mocha";
   };
