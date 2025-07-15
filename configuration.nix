@@ -41,8 +41,8 @@
       "sddm/themes/catppuccin-mocha/Main.qml".source =
     ./themes/catppuccin-mocha/Main.qml;
 
-      "sddm/themes/catppuccin-mocha/assets/BackgroundZeldaLogin.png".source =
-    ./themes/catppuccin-mocha/assets/BackgroundZeldaLogin.png;
+      "sddm/themes/catppuccin-mocha/backgrounds/BackgroundZeldaLogin.png".source =
+    ./themes/catppuccin-mocha/backgrounds/BackgroundZeldaLogin.png;
   };
   
   services.xserver.enable = true;
