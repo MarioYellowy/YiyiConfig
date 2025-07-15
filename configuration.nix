@@ -33,16 +33,26 @@
       Exec=Hyprland
       Type=Application
       DesktopNames=Hyprland
-    '';
+      '';
+
+      "sddm/themes/catppuccin-mocha/theme.conf".source =
+    ./themes/catppuccin-mocha/theme.conf;
+
+      "sddm/themes/catppuccin-mocha/Main.qml".source =
+    ./themes/catppuccin-mocha/Main.qml;
+
+      "sddm/themes/catppuccin-mocha/assets/BackgroundZeldaLogin.png".source =
+    ./themes/catppuccin-mocha/assets/BackgroundZeldaLogin.png;
   };
   
   services.xserver.enable = true;
 
   services.xserver.displayManager.sddm = {
     enable = true;
-    theme  = "breeze";
+    theme  = "catppuccin-mocha";
   };
 
+  services.displayManager.sddm.package = pkgs.kdePackages.sddm;
   services.displayManager.defaultSession = "hyprland";
 
   hardware.acpilight.enable = true;
@@ -97,6 +107,8 @@
     htop
     jetbrains.rider
     jetbrains.idea-ultimate
+    catppuccin-sddm
+    kdePackages.sddm
   ];
 
   fonts = {
