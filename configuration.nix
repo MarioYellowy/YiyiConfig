@@ -1,4 +1,4 @@
-{ confit, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   # 1. Importa la configuración de hardware que generaste
@@ -24,7 +24,27 @@
 
   # 4. Habilitar servicios básicos
   services.openssh.enable = true;
+
+  environment.etc = {
+    "xdg/wayland-sessions/hyprland.desktop".text = ''
+      [Desktop Entry]
+      Name=Hyprland
+      Comment=Dynamic tiling Wayland compositor
+      Exec=Hyprland
+      Type=Application
+      DesktopNames=Hyprland
+    '';
+  };
+  
   services.xserver.enable = true;
+
+  services.xserver.displayManager.sddm = {
+    enable = true;
+    theme  = "breeze";
+  };
+
+  services.displayManager.defaultSession = "hyprland";
+
   hardware.acpilight.enable = true;
 
   # 5. Permitir software no libre (heredado de tu flake)
@@ -56,7 +76,9 @@
     hypridle
     hyprpaper
     hyprcursor
+    xcur2png
     grim
+    gimp
     slurp
     swappy
     surrealist
@@ -65,7 +87,6 @@
     starship
     nwg-look
     catppuccin-gtk
-    gimp
     obs-studio
     libreoffice
     unzip
@@ -89,6 +110,13 @@
       font-awesome
     ];
   };
+
+  environment.variables = {
+    XCURSOR_THEME = "Polarnight-cursors";
+    XCURSOR_SIZE  = "24";
+  };
+
+
 
   services.greetd = {
     settings.default_session = {
