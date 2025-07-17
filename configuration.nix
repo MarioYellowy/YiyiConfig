@@ -1,23 +1,22 @@
-{ config, pkgs, currentDir, ... }:
+{ config, pkgs, flakePath, ... }:
 
 let
-  # 1. Usar builtins.path para obtener la ruta correcta
-  themeSrc = builtins.path {
-    path = ./themes/sddm-astronaut-theme;
-    name = "sddm-majora-theme-source";
-  };
+  themePath = "${flakePath}/themes/sddm-astronaut-theme";
 
-  # 2. Crear el tema usando runCommand
-  myMajoraTheme = pkgs.runCommand "my-majora-theme" {
-    src = themeSrc;
-  } ''
-    mkdir -p $out/share/sddm/themes/my-majora-theme
-    
-    cp -r $src/* $out/share/sddm/themes/my-majora-theme/
-    
-    mv $out/share/sddm/themes/my-majora-theme/Themes/majora.conf \
-       $out/share/sddm/themes/my-majora-theme/theme.conf
-  '';
+  myMajoraTheme = pkgs.stdenv.mkDerivation {
+    name = "my-majora-theme";
+    src = builtins.path {
+      path = themePath;
+      name = "sddm-theme-source";
+    };
+
+    installPhase = ''
+      mkdir -p $out/share/sddm/themes/my-majora-theme
+      cp -r * $out/share/sddm/themes/my-majora-theme/
+      mv $out/share/sddm/themes/my-majora-theme/Themes/majora.conf \
+         $out/share/sddm/themes/my-majora-theme/theme.conf
+    '';
+  };
 in
 {
   imports = [

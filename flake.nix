@@ -23,7 +23,7 @@
 
 	  {
 	  _module.args = {
-	    inherit (self) currentDir;
+	    flakePath = self.outPath;
 	  };
 	  }
         ];
