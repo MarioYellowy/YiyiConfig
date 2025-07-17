@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  # 1. Importa la configuración de hardware que generaste
   imports = [
     ./hardware-configuration.nix
   ];
@@ -12,17 +11,15 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = ["acpi_backlight=vendor"
-  		       "amdgpu.backlight=0"];
 
-  # 2. Nombre de host (debe coincidir con el atributo en tu flake.nix)
+  # Nombre de host
   networking.hostName = "nixos";
 
-  # 3. Locales y zona horaria
+  # Locales y zona horaria
   i18n.defaultLocale = "es_MX.UTF-8";
   time.timeZone = "America/Mexico_City";
 
-  # 4. Habilitar servicios básicos
+  # Habilitar servicios básicos
   services.openssh.enable = true;
 
   environment.etc = {
@@ -34,29 +31,28 @@
       Type=Application
       DesktopNames=Hyprland
       '';
-
-      "sddm/themes/catppuccin-mocha".source = ./themes/catppuccin-mocha;
   };
   
   services.xserver.enable = true;
 
   services.displayManager.sddm = {
     enable = true;
-    theme  = "catppuccin-mocha";
+    theme  = "sddm-astronaut-theme";
+    package = pkgs.kdePackages.sddm;
+    extraPackages = with pkgs.qt6; [ qtmultimedia ];
   };
 
-  services.displayManager.sddm.package = pkgs.kdePackages.sddm;
   services.displayManager.defaultSession = "hyprland";
 
   hardware.acpilight.enable = true;
 
-  # 5. Permitir software no libre (heredado de tu flake)
+  # Permitir software no libre
   nixpkgs.config.allowUnfree = true;
 
   programs.hyprland.enable = true;
   programs.steam.enable = true;
 
-  # 6. Paquetes del sistema (igual que en tu flake)
+  # Paquetes del sistema
   environment.systemPackages = with pkgs; [
     brave
     nushell
@@ -100,10 +96,12 @@
     htop
     jetbrains.rider
     jetbrains.idea-ultimate
-    catppuccin-sddm
-    kdePackages.sddm
+    sddm-astronaut
+    kdePackages.qt6ct
+    kdePackages.qtmultimedia
   ];
 
+  #Fonts
   fonts = {
     fontDir.enable    = true;
     fontconfig.enable = true;
@@ -116,13 +114,13 @@
     ];
   };
 
+  # HyprCursor
   environment.variables = {
     XCURSOR_THEME = "Polarnight-cursors";
     XCURSOR_SIZE  = "24";
   };
 
-
-
+  # Login session
   services.greetd = {
     settings.default_session = {
       command = "Hyprland";
@@ -130,17 +128,14 @@
     };
   };
 
-  # 7. Usuarios
+  # Usuarios
   users.users.mario = {
     isNormalUser = true;
     extraGroups  = [ "wheel" "networkmanager" "docker" ];
     shell        = pkgs.nushell;
   };
 
-  # 8. Firewall
+  # Firewall
   networking.firewall.enable           = true;
   networking.firewall.allowedTCPPorts  = [ 22 80 443 ];
-
-  # 9. Cualquier otro módulo personalizado
-  # imports = [ ./otro-modulo.nix ];
 }
