@@ -13,13 +13,19 @@
     system = "x86_64-linux";
     pkgs   = import nixpkgs { inherit system; config.allowUnfree = true; };
     pkgsUnstable = import unstable { inherit system; config.allowUnfree = true; };
+    currentDir = self;
   in {
-    # Ahora está en la raíz de outputs
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
           ./configuration.nix
+
+	  {
+	  _module.args = {
+	    inherit (self) currentDir;
+	  };
+	  }
         ];
     };
 

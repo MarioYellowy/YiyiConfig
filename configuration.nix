@@ -1,5 +1,24 @@
-{ config, pkgs, ... }:
+{ config, pkgs, currentDir, ... }:
 
+let
+  # 1. Usar builtins.path para obtener la ruta correcta
+  themeSrc = builtins.path {
+    path = ./themes/sddm-astronaut-theme;
+    name = "sddm-majora-theme-source";
+  };
+
+  # 2. Crear el tema usando runCommand
+  myMajoraTheme = pkgs.runCommand "my-majora-theme" {
+    src = themeSrc;
+  } ''
+    mkdir -p $out/share/sddm/themes/my-majora-theme
+    
+    cp -r $src/* $out/share/sddm/themes/my-majora-theme/
+    
+    mv $out/share/sddm/themes/my-majora-theme/Themes/majora.conf \
+       $out/share/sddm/themes/my-majora-theme/theme.conf
+  '';
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -37,7 +56,7 @@
 
   services.displayManager.sddm = {
     enable = true;
-    theme  = "sddm-astronaut-theme";
+    theme  = "my-majora-theme";
     package = pkgs.kdePackages.sddm;
     extraPackages = with pkgs.qt6; [ qtmultimedia ];
   };
@@ -96,9 +115,9 @@
     htop
     jetbrains.rider
     jetbrains.idea-ultimate
-    sddm-astronaut
     kdePackages.qt6ct
     kdePackages.qtmultimedia
+    myMajoraTheme
   ];
 
   #Fonts
@@ -118,14 +137,6 @@
   environment.variables = {
     XCURSOR_THEME = "Polarnight-cursors";
     XCURSOR_SIZE  = "24";
-  };
-
-  # Login session
-  services.greetd = {
-    settings.default_session = {
-      command = "Hyprland";
-      user = "mario";
-    };
   };
 
   # Usuarios
