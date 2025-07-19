@@ -1,20 +1,23 @@
 { config, pkgs, self, ... }:
 
 let
-  # Ruta absoluta al tema usando self.outPath
-  themeSource = "${self.outPath}/themes/sddm-astronaut-theme";
-  
+  # Crear el tema directamente desde el directorio local
   myMajoraTheme = pkgs.stdenv.mkDerivation {
     name = "my-majora-theme";
-    
-    # No necesitamos src, usamos rutas directas
-    buildInputs = [ pkgs.rsync ];
-    
+    src = ./themes/sddm-astronaut-theme;
+
     installPhase = ''
       mkdir -p $out/share/sddm/themes/astronaut
       
-      # Copiar estructura completa del tema
-      rsync -a ${themeSource}/ $out/share/sddm/themes/astronaut/
+      cp -r $src/Assets $out/share/sddm/themes/astronaut/
+      cp -r $src/Backgrounds $out/share/sddm/themes/astronaut/
+      cp -r $src/Components $out/share/sddm/themes/astronaut/
+      cp -r $src/Fonts $out/share/sddm/themes/astronaut/
+      cp -r $src/Themes $out/share/sddm/themes/astronaut/
+      cp $src/Main.qml $out/share/sddm/themes/astronaut/
+      cp $src/metadata.desktop $out/share/sddm/themes/astronaut/
+      
+      ln -s Themes/majora.conf $out/share/sddm/themes/astronaut/theme.conf
     '';
   };
 in
