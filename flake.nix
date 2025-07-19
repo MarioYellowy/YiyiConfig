@@ -8,13 +8,14 @@
     flake-utils.url   = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, unstable, hyprland, flake-utils, ... }@inputs:
+  outputs = { self, nixpkgs, unstable, hyprland, flake-utils, ... }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { 
       inherit system; 
       config.allowUnfree = true;
     };
+    grubThemeModule = import ./modules/grub/grub-theme.nix { inherit pkgs; };
   in {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
@@ -22,8 +23,10 @@
 	specialArgs = { inherit self; };
         modules = [
           ./configuration.nix
-        ];
+	  grubThemeModule
+	];
       };
     };
   };
 }
+

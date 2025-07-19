@@ -5,24 +5,11 @@
 
   imports = [
     ./hardware-configuration.nix
-    ./modules/grub-theme.nix
   ];
 
   system.stateVersion = "25.05";
 
   virtualisation.docker.enable = true;
-
-  boot.loader = {
-  systemd-boot.enable = false;      # Desactiva systemd-boot si no lo usas
-  grub = {
-    enable = true;
-    efiSupport = true;
-    efiInstallAsRemovable = true;  # Por si no puede tocar variables EFI
-    device = "nodev";              # ¡Muy importante! Así evitas el error
-  };
-};
-
-boot.loader.efi.canTouchEfiVariables = false;
 
   # Nombre de host
   networking.hostName = "nixos";
