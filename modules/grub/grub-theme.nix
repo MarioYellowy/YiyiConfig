@@ -10,7 +10,7 @@ let
     '';
   };
 in {
-  environment.etc."grub/themes/Elegant-wave-blur-right-dark".source = ./modules/grub/Elegant-wave-blur-grub-themes/right-dark-1080p_1/Elegant-wave-blur-right-dark;
+  environment.etc."grub/themes/Elegant-wave-blur-right-dark".source = ./Elegant-wave-blur-grub-themes/right-dark-1080p_1/Elegant-wave-blur-right-dark;
 
   boot.loader = {
     systemd-boot.enable = false;
