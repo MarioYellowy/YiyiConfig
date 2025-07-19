@@ -43,18 +43,16 @@ in
   services.displayManager.sddm = {
     enable = true;
     theme  = "astronaut";
-    settings = {
-      Theme = {
-        Current = "astronaut";
-      };
-    };
-    themeDir = "${sddmThemePath}";
     extraPackages = with pkgs.qt6; [ qtmultimedia ];
   };
 
   system.activationScripts.sddm-theme-setup = ''
     mkdir -p /usr/share/sddm/themes
     ln -sfn ${sddmThemePath} /usr/share/sddm/themes/astronaut
+  '';
+
+  # Crear el archivo theme.conf requerido
+  system.activationScripts.sddm-theme-conf = ''
     ln -sf ${sddmThemePath}/Themes/majora.conf ${sddmThemePath}/theme.conf
   '';
 
