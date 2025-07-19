@@ -1,18 +1,20 @@
-{ config, pkgs, ... }:
+{ config, pkgs, self, ... }:
 
 let
-  themePath = builtins.path {
-    path = ./themes/sddm-astronaut-theme;
-    name = "sddm-astronaut-theme";
-  };
+  configDir = builtins.toString self.outPath;
   
   myMajoraTheme = pkgs.stdenv.mkDerivation {
     name = "my-majora-theme";
-    src = themePath;
+
+    buildInputs = [ pkgs.rsync ];
     
     installPhase = ''
       mkdir -p $out/share/sddm/themes/
-      cp -r $src/Themes $out/share/sddm/themes/
+      rsync -a ${configDir}/themes/sddm-astronaut-theme/Themes/ $out/share/sddm/themes/
+      
+      # Copiar Backgrounds también
+      mkdir -p $out/share/sddm/themes/Backgrounds
+      cp ${configDir}/themes/sddm-astronaut-theme/Backgrounds/majoraBackground.png $out/share/sddm/themes/Backgrounds/
     '';
   };
 in

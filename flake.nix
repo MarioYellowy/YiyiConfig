@@ -8,7 +8,7 @@
     flake-utils.url   = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, unstable, hyprland, flake-utils, ... }:
+  outputs = { self, nixpkgs, unstable, hyprland, flake-utils, ... }@inputs:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { 
@@ -20,21 +20,11 @@
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-	  {
-            nix.extraOptions = ''
-              extra-builtins-file = ${builtins.toFile "extra-builtins.nix" ''
-                _: {
-                  inherit (builtins) path;
-                }
-              ''}
-            '';
-          }
+	  ({ self, ... }: {
+            nix.extraOptions = "!include ${./nix-path-conf.nix}";
+          })
           ./configuration.nix
         ];
-	specialArgs = {
-          inherit self;
-          localFiles = self.outPath;
-        };
       };
     };
   };
