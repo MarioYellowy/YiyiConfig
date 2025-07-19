@@ -1,10 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
 
   imports = [
     ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   system.stateVersion = "25.05";
@@ -40,6 +41,12 @@
 
   programs.hyprland.enable = true;
   programs.steam.enable = true;
+
+  home-manager = {
+    useUserPackages = true;
+    useGlobalPkgs = true;
+    users.mario = import ./home.nix;
+  };
 
   # Paquetes del sistema
   environment.systemPackages = with pkgs; [

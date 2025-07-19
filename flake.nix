@@ -6,10 +6,10 @@
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     hyprland.url = "github:hyprwm/Hyprland";
     flake-utils.url = "github:numtide/flake-utils";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
   };
 
-  outputs = { self, nixpkgs, unstable, hyprland, home-manager, flake-utils, ... }:
+  outputs = inputs@{ self, nixpkgs, unstable, hyprland, home-manager, flake-utils, ... }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { 
@@ -22,10 +22,11 @@
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-	specialArgs = { inherit self; };
+	specialArgs = { inherit self inputs; };
         modules = [
           ./configuration.nix
 	  grubThemeModule
+	  hm.nixosModules.home-manager
 	];
       };
     };
