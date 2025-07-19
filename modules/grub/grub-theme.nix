@@ -16,11 +16,17 @@ in {
     systemd-boot.enable = false;
 
     grub = {
-      enable                = true;
-      efiSupport            = true;
+      enable = true;
+      efiSupport = true;
       efiInstallAsRemovable = true;
-      device                = "nodev";
-      theme                 = "/etc/grub/themes/elegant/theme.txt";
+      device = "nodev";
+
+      theme = "/boot/grub/themes/elegant/theme.txt";
+
+      extraPrepareConfig = ''
+        mkdir -p /boot/grub/themes/elegant
+        cp -r /etc/grub/themes/elegant/* /boot/grub/themes/elegant/
+      '';
     };
 
     efi.canTouchEfiVariables = false;
