@@ -1,20 +1,20 @@
 { config, pkgs, self, ... }:
 
 let
-  configDir = builtins.toString self.outPath;
+  # Ruta absoluta al tema usando self.outPath
+  themeSource = "${self.outPath}/themes/sddm-astronaut-theme";
   
   myMajoraTheme = pkgs.stdenv.mkDerivation {
     name = "my-majora-theme";
-
+    
+    # No necesitamos src, usamos rutas directas
     buildInputs = [ pkgs.rsync ];
     
     installPhase = ''
-      mkdir -p $out/share/sddm/themes/
-      rsync -a ${configDir}/themes/sddm-astronaut-theme/Themes/ $out/share/sddm/themes/
+      mkdir -p $out/share/sddm/themes/astronaut
       
-      # Copiar Backgrounds también
-      mkdir -p $out/share/sddm/themes/Backgrounds
-      cp ${configDir}/themes/sddm-astronaut-theme/Backgrounds/majoraBackground.png $out/share/sddm/themes/Backgrounds/
+      # Copiar estructura completa del tema
+      rsync -a ${themeSource}/ $out/share/sddm/themes/astronaut/
     '';
   };
 in

@@ -19,6 +19,7 @@
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
+	specialArgs = { inherit self; };
         modules = [
 	  ({ self, ... }: {
             nix.extraOptions = "!include ${./nix-path-conf.nix}";
