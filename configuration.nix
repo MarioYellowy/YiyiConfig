@@ -1,25 +1,15 @@
 { config, pkgs, self, ... }:
 
 let
-  # Crear el tema directamente desde el directorio local
-  myMajoraTheme = pkgs.stdenv.mkDerivation {
-    name = "my-majora-theme";
+  myMajoraTheme = pkgs.runCommand "astronaut-theme" {
     src = ./themes/sddm-astronaut-theme;
-
-    installPhase = ''
-      mkdir -p $out/share/sddm/themes/astronaut
-      
-      cp -r $src/Assets $out/share/sddm/themes/astronaut/
-      cp -r $src/Backgrounds $out/share/sddm/themes/astronaut/
-      cp -r $src/Components $out/share/sddm/themes/astronaut/
-      cp -r $src/Fonts $out/share/sddm/themes/astronaut/
-      cp -r $src/Themes $out/share/sddm/themes/astronaut/
-      cp $src/Main.qml $out/share/sddm/themes/astronaut/
-      cp $src/metadata.desktop $out/share/sddm/themes/astronaut/
-      
-      ln -s Themes/majora.conf $out/share/sddm/themes/astronaut/theme.conf
-    '';
-  };
+  } ''
+    mkdir -p $out/share/sddm/themes/astronaut
+    cp -r $src/* $out/share/sddm/themes/astronaut/
+    
+    cd $out/share/sddm/themes/astronaut
+    ln -s Themes/majora.conf theme.conf
+  '';
 in
 {
   nixpkgs.config.allowUnfree = true;
@@ -59,7 +49,7 @@ in
 
   services.displayManager.sddm = {
     enable = true;
-    theme  = "my-majora-theme";
+    theme  = "astronaut";
     extraPackages = with pkgs.qt6; [ qtmultimedia ];
   };
 
