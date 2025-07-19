@@ -10,7 +10,7 @@ let
     '';
   };
 in {
-  environment.etc."grub/themes/elegant".source = grubTheme;
+  environment.etc."grub/themes/Elegant-wave-blur-right-dark".source = ./modules/grub/Elegant-wave-blur-grub-themes/right-dark-1080p_1/Elegant-wave-blur-right-dark;
 
   boot.loader = {
     systemd-boot.enable = false;
@@ -21,12 +21,12 @@ in {
       efiInstallAsRemovable = true;
       device = "nodev";
 
-      theme = "/boot/grub/themes/elegant/theme.txt";
+      theme = "/boot/grub/themes/Elegant-wave-blur-right-dark/theme.txt";
 
       extraPrepareConfig = ''
-        mkdir -p /boot/grub/themes/elegant
-        cp -r /etc/grub/themes/elegant/* /boot/grub/themes/elegant/
-      '';
+        mkdir -p /boot/grub/themes/Elegant-wave-blur-right-dark
+        cp -r /etc/grub/themes/Elegant-wave-blur-right-dark/* /boot/grub/themes/Elegant-wave-blur-right-dark/
+  '';
     };
 
     efi.canTouchEfiVariables = false;
