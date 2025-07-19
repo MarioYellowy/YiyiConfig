@@ -1,28 +1,8 @@
 { config, pkgs, self, ... }:
 
 let
-  myMajoraTheme = pkgs.stdenv.mkDerivation {
-    name = "astronaut-theme";
-    
-    src = ./.;
-    
-    buildPhase = ":";
-    
-    installPhase = ''
-      mkdir -p $out/share/sddm/themes/astronaut
-      
-      cp -r themes/sddm-astronaut-theme/Assets $out/share/sddm/themes/astronaut/
-      cp -r themes/sddm-astronaut-theme/Backgrounds $out/share/sddm/themes/astronaut/
-      cp -r themes/sddm-astronaut-theme/Components $out/share/sddm/themes/astronaut/
-      cp -r themes/sddm-astronaut-theme/Fonts $out/share/sddm/themes/astronaut/
-      cp -r themes/sddm-astronaut-theme/Themes $out/share/sddm/themes/astronaut/
-      cp themes/sddm-astronaut-theme/Main.qml $out/share/sddm/themes/astronaut/
-      cp themes/sddm-astronaut-theme/metadata.desktop $out/share/sddm/themes/astronaut/
-      
-      cd $out/share/sddm/themes/astronaut
-      ln -s Themes/majora.conf theme.conf
-    '';
-  };
+  # Usar el tema directamente desde el sistema de archivos
+  sddmThemePath = "/home/mario/Documents/nixos-config/themes/sddm-astronaut-theme";
 in
 {
   nixpkgs.config.allowUnfree = true;
@@ -63,8 +43,20 @@ in
   services.displayManager.sddm = {
     enable = true;
     theme  = "astronaut";
+    settings = {
+      Theme = {
+        Current = "astronaut";
+      };
+    };
+    themeDir = "${sddmThemePath}";
     extraPackages = with pkgs.qt6; [ qtmultimedia ];
   };
+
+  system.activationScripts.sddm-theme-setup = ''
+    mkdir -p /usr/share/sddm/themes
+    ln -sfn ${sddmThemePath} /usr/share/sddm/themes/astronaut
+    ln -sf ${sddmThemePath}/Themes/majora.conf ${sddmThemePath}/theme.conf
+  '';
 
   services.displayManager.defaultSession = "hyprland";
 
