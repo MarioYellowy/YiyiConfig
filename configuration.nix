@@ -1,24 +1,23 @@
-{ config, pkgs, flakePath, ... }:
+{ config, pkgs, ... }:
 
 let
-  themePath = "${flakePath}/themes/sddm-astronaut-theme";
-
+  themePath = builtins.path {
+    path = ./themes/sddm-astronaut-theme;
+    name = "sddm-astronaut-theme";
+  };
+  
   myMajoraTheme = pkgs.stdenv.mkDerivation {
     name = "my-majora-theme";
-    src = builtins.path {
-      path = themePath;
-      name = "sddm-theme-source";
-    };
-
+    src = themePath;
+    
     installPhase = ''
-      mkdir -p $out/share/sddm/themes/my-majora-theme
-      cp -r * $out/share/sddm/themes/my-majora-theme/
-      mv $out/share/sddm/themes/my-majora-theme/Themes/majora.conf \
-         $out/share/sddm/themes/my-majora-theme/theme.conf
+      mkdir -p $out/share/sddm/themes/
+      cp -r $src/Themes $out/share/sddm/themes/
     '';
   };
 in
 {
+  nixpkgs.config.allowUnfree = true;
   imports = [
     ./hardware-configuration.nix
   ];
@@ -56,16 +55,12 @@ in
   services.displayManager.sddm = {
     enable = true;
     theme  = "my-majora-theme";
-    package = pkgs.kdePackages.sddm;
     extraPackages = with pkgs.qt6; [ qtmultimedia ];
   };
 
   services.displayManager.defaultSession = "hyprland";
 
   hardware.acpilight.enable = true;
-
-  # Permitir software no libre
-  nixpkgs.config.allowUnfree = true;
 
   programs.hyprland.enable = true;
   programs.steam.enable = true;
@@ -117,6 +112,7 @@ in
     kdePackages.qt6ct
     kdePackages.qtmultimedia
     myMajoraTheme
+    gcc
   ];
 
   #Fonts
