@@ -1,15 +1,28 @@
 { config, pkgs, self, ... }:
 
 let
-  myMajoraTheme = pkgs.runCommand "astronaut-theme" {
-    src = ./themes/sddm-astronaut-theme;
-  } ''
-    mkdir -p $out/share/sddm/themes/astronaut
-    cp -r $src/* $out/share/sddm/themes/astronaut/
+  myMajoraTheme = pkgs.stdenv.mkDerivation {
+    name = "astronaut-theme";
     
-    cd $out/share/sddm/themes/astronaut
-    ln -s Themes/majora.conf theme.conf
-  '';
+    src = ./.;
+    
+    buildPhase = ":";
+    
+    installPhase = ''
+      mkdir -p $out/share/sddm/themes/astronaut
+      
+      cp -r themes/sddm-astronaut-theme/Assets $out/share/sddm/themes/astronaut/
+      cp -r themes/sddm-astronaut-theme/Backgrounds $out/share/sddm/themes/astronaut/
+      cp -r themes/sddm-astronaut-theme/Components $out/share/sddm/themes/astronaut/
+      cp -r themes/sddm-astronaut-theme/Fonts $out/share/sddm/themes/astronaut/
+      cp -r themes/sddm-astronaut-theme/Themes $out/share/sddm/themes/astronaut/
+      cp themes/sddm-astronaut-theme/Main.qml $out/share/sddm/themes/astronaut/
+      cp themes/sddm-astronaut-theme/metadata.desktop $out/share/sddm/themes/astronaut/
+      
+      cd $out/share/sddm/themes/astronaut
+      ln -s Themes/majora.conf theme.conf
+    '';
+  };
 in
 {
   nixpkgs.config.allowUnfree = true;
