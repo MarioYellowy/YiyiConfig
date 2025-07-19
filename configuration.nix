@@ -1,4 +1,4 @@
-{ config, pkgs, self, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -12,8 +12,17 @@
 
   virtualisation.docker.enable = true;
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+  systemd-boot.enable = false;      # Desactiva systemd-boot si no lo usas
+  grub = {
+    enable = true;
+    efiSupport = true;
+    efiInstallAsRemovable = true;  # Por si no puede tocar variables EFI
+    device = "nodev";              # ¡Muy importante! Así evitas el error
+  };
+};
+
+boot.loader.efi.canTouchEfiVariables = false;
 
   # Nombre de host
   networking.hostName = "nixos";
