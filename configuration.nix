@@ -96,7 +96,7 @@
     kdePackages.qtmultimedia
     gcc
     wl-clipboard-rs
-    xclip
+    wtype
   ];
 
   #Fonts
@@ -122,7 +122,7 @@
   users.users.mario = {
     isNormalUser = true;
     extraGroups  = [ "wheel" "networkmanager" "docker" ];
-    shell        = pkgs.nushell;
+    shell = pkgs.nushell;
   };
 
   # Firewall
