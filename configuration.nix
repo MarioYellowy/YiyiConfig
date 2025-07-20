@@ -5,7 +5,6 @@
 
   imports = [
     ./hardware-configuration.nix
-    inputs.home-manager.nixosModules.home-manager
     ./modules/hyprland/hyprland.nix
   ];
 
@@ -42,11 +41,11 @@
 
   programs.steam.enable = true;
 
-  home-manager = {
-    useUserPackages = true;
-    useGlobalPkgs = true;
-    users.mario = import ./home.nix;
-  };
+  programs.home-manager.enable = true;
+  home-manager.useGlobalPkgs       = true;
+  home-manager.useUserPackages     = true;
+  home-manager.users.mario         = import ./home.nix;
+  home-manager.backupFileExtension = "bkp";
 
   # Paquetes del sistema
   environment.systemPackages = with pkgs; [
@@ -91,6 +90,7 @@
     kdePackages.qtmultimedia
     gcc
     tree
+    home-manager
   ];
 
   #Fonts

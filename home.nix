@@ -3,6 +3,7 @@
   home.username = "mario";
   home.homeDirectory = "/home/mario";
   home.stateVersion = "25.05";
+  systemd.user.startServices = "sd-switch";
 
   home.packages = with pkgs; [
     
