@@ -46,8 +46,6 @@
     useUserPackages = true;
     useGlobalPkgs = true;
     users.mario = import ./home.nix;
-
-    backupFileExtension = "backup";
   };
 
   # Paquetes del sistema
