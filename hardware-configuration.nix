@@ -15,11 +15,20 @@
       fsType = "ext4";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/99BB-E92D";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
+  fileSystems."/boot" = {
+  device = "/dev/sda1";
+  fsType = "vfat";
+  options = [
+    "rw"
+    "relatime"
+    "fmask=0022"  # Allow group/others read+execute
+    "dmask=0022"  # Allow group/others read+execute
+    "codepage=437"
+    "iocharset=iso8859-1"
+    "shortname=mixed"
+    "errors=remount-ro"
+  ];
+};
 
   swapDevices = [ ];
 
