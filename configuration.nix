@@ -96,6 +96,7 @@
     kdePackages.qtmultimedia
     gcc
     wl-clipboard-rs
+    xclip
   ];
 
   #Fonts
