@@ -9,6 +9,6 @@
   ];
 
   home.file = {
-    ".config/nix/nix.conf".source = ./dotfiles/nix.conf;
+    ".config/nix/nix.conf".source = ./dotfiles/config/nix/nix.conf;
   };
 }
