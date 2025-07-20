@@ -6,6 +6,7 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
+    ./modules/sway/sway.nix
   ];
 
   system.stateVersion = "25.05";
@@ -95,8 +96,6 @@
     kdePackages.qt6ct
     kdePackages.qtmultimedia
     gcc
-    wl-clipboard-rs
-    wtype
   ];
 
   #Fonts
