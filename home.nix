@@ -10,5 +10,6 @@
 
   home.file = {
     ".config/nix/nix.conf".source = ./dotfiles/config/nix/nix.conf;
+    ".config/hypr/hyprland.conf".source = ./dotfiles/hypr/hyprland.conf;
   };
 }

@@ -6,7 +6,7 @@
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
-    ./modules/sway/sway.nix
+    ./modules/hyprland/hyprland.nix
   ];
 
   system.stateVersion = "25.05";
@@ -40,13 +40,14 @@
 
   hardware.acpilight.enable = true;
 
-  programs.hyprland.enable = true;
   programs.steam.enable = true;
 
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
     users.mario = import ./home.nix;
+
+    backupFileExtension = "backup";
   };
 
   # Paquetes del sistema
@@ -56,7 +57,6 @@
     discord
     youtube-music
     zed-editor
-    hyprland
     waybar
     kitty
     wofi
@@ -68,10 +68,6 @@
     git
     prismlauncher
     swaynotificationcenter
-    hyprlock
-    hypridle
-    hyprpaper
-    hyprcursor
     xcur2png
     grim
     gimp
@@ -96,6 +92,7 @@
     kdePackages.qt6ct
     kdePackages.qtmultimedia
     gcc
+    tree
   ];
 
   #Fonts
@@ -109,12 +106,6 @@
       nerd-fonts.hack
       font-awesome
     ];
-  };
-
-  # HyprCursor
-  environment.variables = {
-    XCURSOR_THEME = "Polarnight-cursors";
-    XCURSOR_SIZE  = "24";
   };
 
   # Usuarios
