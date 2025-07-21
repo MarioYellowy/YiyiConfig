@@ -33,18 +33,20 @@
       '';
   };
   
-  services.xserver.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
 
-  services.displayManager.defaultSession = "hyprland";
+  services.displayManager.defaultSession = "hyprland-uwsm";
 
   hardware.acpilight.enable = true;
 
   programs.steam.enable = true;
 
-  programs.home-manager.enable = true;
   home-manager.useGlobalPkgs       = true;
   home-manager.useUserPackages     = true;
-  home-manager.users.mario         = import ./home.nix;
+  home-manager.users.mario = import ./home.nix {
+    inherit config pkgs inputs;
+  };
   home-manager.backupFileExtension = "bkp";
 
   # Paquetes del sistema
@@ -54,10 +56,7 @@
     discord
     youtube-music
     zed-editor
-    waybar
     kitty
-    wofi
-    brightnessctl
     pavucontrol
     networkmanagerapplet
     neovim
@@ -80,8 +79,6 @@
     libreoffice
     unzip
     neofetch
-    pulseaudioFull
-    playerctl
     dotnetCorePackages.sdk_9_0_3xx
     htop
     jetbrains.rider
@@ -90,7 +87,6 @@
     kdePackages.qtmultimedia
     gcc
     tree
-    home-manager
   ];
 
   #Fonts
