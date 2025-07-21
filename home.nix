@@ -23,11 +23,12 @@ in
     ".config/waybar/style.css".source = ./dotfiles/config/waybar/style.css;
   };
 
-  xdg.configFile."hypr/hyprland.conf".source = ./dotfiles/config/hypr/hyprland.conf;
+  #xdg.configFile."hypr/hyprland.conf".source = ./dotfiles/config/hypr/hyprland.conf;
   wayland.windowManager.hyprland = {
     enable = true;
     package = hypr;
     portalPackage = portal;
+    extraConfig = builtins.readFile ./dotfiles/config/hypr/hyprland.conf;
   };
 
   programs.nushell = {

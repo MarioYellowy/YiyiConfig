@@ -6,6 +6,7 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/hyprland/hyprland.nix
+    ./modules/waybar/waybar.nix
   ];
 
   system.stateVersion = "25.05";
