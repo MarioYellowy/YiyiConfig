@@ -31,7 +31,12 @@
 	  ./modules.nix {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-          }
+	  }
+	  {
+	    system.activationScripts.home-manager.text = ''
+              after=("users")
+            '';
+	  }
           {
             system.stateVersion = "25.05";
           }
