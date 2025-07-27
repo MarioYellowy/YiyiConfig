@@ -73,6 +73,7 @@
     gcc
     tree
     obsidian
+    rustup
   ];
 
   environment.etc."xdg/wayland-sessions/hyprland.desktop".text = ''
