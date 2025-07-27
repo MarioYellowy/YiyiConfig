@@ -140,7 +140,8 @@ in
         "$mainMod, SPACE, exec, $menu"
         "$mainMod, P, pseudo," # dwindle
         "$mainMod, J, togglesplit," # dwindle
-        "CTRL+SHIFT, V, exec, nu -c 'wl-paste --no-newline | wtype'"
+
+	", PRINT, exec, bash -lc 'grim -g \"$(slurp)\" ~/Pictures/screenshot_$(date +\"%Y%m%d_%H%M%S\").png && swappy -f ~/Pictures/screenshot_$(date +\"%Y%m%d_%H%M%S\").png'"
         "$mainMod, left, movefocus, l"
         "$mainMod, right, movefocus, r"
         "$mainMod, up, movefocus, u"
