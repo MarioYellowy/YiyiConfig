@@ -17,7 +17,7 @@
     border-radius: 0px;
     font-family: "JetbrainsMono Nerd Font Propo";
     font-style: italic;
-    font-size: 14px;
+    font-size: 12px;
     min-height: 0;
 }
 
@@ -35,7 +35,7 @@
 
 /*----------Waybar Window------------*/
 window#waybar {
-    background: alpha(@background, 0.5);
+    background-color: transparent;
 }
 
 /*-----------Tooltip--------------*/
@@ -46,7 +46,7 @@ tooltip {
 }
 tooltip label {
   color: @foreground;
-  padding: 6px;
+  padding: 0px;
 }
 
 /*---------Workspaces-----------------*/
