@@ -12,7 +12,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, hyprland, home-manager, flake-utils, ... }:
+  outputs = { self, nixpkgs, unstable, hyprland, home-manager, flake-utils, ... }@inputs:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { 

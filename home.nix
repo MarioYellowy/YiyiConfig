@@ -186,6 +186,10 @@ in
         "suppressevent maximize, class:.*"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
       ];
+      windowrulev2 = [
+        "opaque, class:(jetbrains-idea|jetbrains-rider)"
+        "bordercolor rgba(ffffffee) rgba(ffffffee), class:(jetbrains-idea|jetbrains-rider)"
+      ];
     };
   };
 
