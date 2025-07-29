@@ -85,15 +85,15 @@ in
           "linear, 1, 1, 1, 1"
         ];
         animation = [
-          "windows, 1, 6, wind, slide"
-          "windowsIn, 1, 6, winIn, slide"
-          "windowsOut, 1, 5, winOut, slide"
-          "windowsMove, 1, 5, wind, slide"
+          "windows, 1, 4, wind, slide"
+          "windowsIn, 1, 4, winIn, slide"
+          "windowsOut, 1, 3, winOut, slide"
+          "windowsMove, 1, 3, wind, slide"
           "border, 1, 1, linear"
           "borderangle, 1, 30, linear, once"
-          "fade, 1, 10, default"
-          "workspaces, 1, 5, wind"
-          "specialWorkspace, 1, 5, wind, slidevert"
+          "fade, 1, 8, default"
+          "workspaces, 1, 3, wind"
+          "specialWorkspace, 1, 3, wind, slidevert"
         ];
       };
       
