@@ -38,6 +38,10 @@ in
         "waybar"
         "swaync"
       ];
+
+      exec = [
+	"waybar"
+      ];
       
       # Variables de entorno
       env = [
@@ -109,8 +113,9 @@ in
         disable_hyprland_logo = false;
       };
       
-      input = {
-        kb_layout = "us";
+      input = with config.services.xserver; {
+        kb_layout = xkb.layout;
+	kb_variant = xkb.variant;
         follow_mouse = 1;
         touchpad.natural_scroll = false;
       };

@@ -18,6 +18,7 @@
     pkgs = import nixpkgs { 
       inherit system;
       config.allowUnfree = true;
+      allowInsecurePackages = [ "ventoy" ];
     };
     hmModule = home-manager.nixosModules.home-manager;
   in {
