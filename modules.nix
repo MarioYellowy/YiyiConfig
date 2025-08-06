@@ -33,9 +33,14 @@
       sddm.wayland.enable = true;
       defaultSession = "hyprland";
     };
+
     xserver.xkb = {
       layout = "us";
       variant = "altgr-intl";
+    };
+
+    surrealdb = {
+      enable = true;
     };
   };
 
@@ -82,7 +87,9 @@
     xorg.libX11
     xorg.libICE
     xorg.libSM
-    usermount
+    davinci-resolve
+    bluez
+    surrealdb
   ];
 
   environment.etc."xdg/wayland-sessions/hyprland.desktop".text = ''

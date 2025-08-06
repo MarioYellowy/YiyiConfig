@@ -29,6 +29,7 @@
 		"battery",
 		"pulseaudio",
 		"network",
+		"bluetooth",
 		"clock"
 	],
 
@@ -207,7 +208,15 @@
 		"format-linked": "{ifname} (No IP)",
 		"format-wifi": "  {signalStrength}%",
 		"tooltip-format": "Connected to {essid} {ifname} via {gwaddr}",
-		"on-click": "ghostty --title=TermNmtui -e 'sleep 0.1; nmtui'"
+		"on-click": "kitty --title=TermNmtui -e 'sleep 0.1; nmtui'"
+	},
+
+	/*--------------Bluetooth---------------*/
+	"bluetooth": {
+		"format-off": "󰂲 ",
+		"format-on": "󰂯 ",
+		"format-connected": "󰂱 ",
+		"tooltip": true,
 	},
 
 	/*------------Tray--------------------*/
